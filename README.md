@@ -6,21 +6,21 @@ This is a web application built using [Angular](https://angular.io/). The applic
 
 Before you begin, ensure you have met the following requirements:
 
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [NPM](https://www.npmjs.com/) (v6 or later)
+- [Node.js](https://nodejs.org/) (v16 or later)
+- [NPM](https://www.npmjs.com/) (v8 or later)
 
 ## Installation
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
+    git clone https://github.com/Memorality-tech/test-tech-frontend.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd your-repo-name
+    cd test-tech-frontend
     ```
 
 3. Install the dependencies:
