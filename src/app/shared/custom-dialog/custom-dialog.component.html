@@ -1,0 +1,11 @@
+<div >
+  <mat-dialog-content>
+    <h4 >{{data.title}}</h4>
+    <div > {{data.description}} </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="close(false)">{{data.secondaryLabel}}</button>
+    <button  mat-flat-button (click)="close(true)" >{{data.primaryLabel}}</button>
+  </mat-dialog-actions>
+</div>

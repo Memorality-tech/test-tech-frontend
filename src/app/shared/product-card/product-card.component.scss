@@ -1,0 +1,28 @@
+.card {
+  //width: 300px;
+}
+
+.date {
+  font-size: small;
+  color: grey;
+  text-align: right;
+  width: max-content;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  width: 70%;
+  height: 72px;
+  overflow: auto;
+
+}
+
+.description {
+  font-size: 14px;
+  height: 120px;
+  overflow: auto;
+}
+custom-detail-panel {
+  border-radius: 0 !important;
+}

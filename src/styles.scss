@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import "variables";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.primary-color {
+  color: $color-orange;
+}
+.custom-tel {
+  background-color: transparent;
+  border: 1px solid #74777f;
+  padding: 16px 0;
+  border-radius: 4px;
+  width: 100%;
+}
+.mat-drawer {
+  border-radius: 0 !important;
+}
+
+custom-detail-panel {
+  border-radius: 0 !important;
+}
+
+.custom-tel-error {
+  background-color: transparent;
+  padding: 16px 0;
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid var(--mat-form-field-error-text-color);
+}
+.custom-modal {
+  min-width: 80vw !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .custom-modal {
+    min-width: 90vw;
+  }
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

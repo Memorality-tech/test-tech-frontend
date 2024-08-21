@@ -1,0 +1,24 @@
+<div class="example-container" >
+  <mat-toolbar class="toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon class="toolbar">menu</mat-icon></button>
+    <h1 class="example-app-name">Memorality</h1>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container" [hasBackdrop]="onMobile"
+                       >
+    <mat-sidenav #sidenav [mode]="onMobile ? 'over':'side'" [opened]="!onMobile" class="sidebar"
+                  fixedTopGap="56">
+      <mat-nav-list class="pt-0">
+        @for (nav of fillerNav; track nav) {
+          <div class="router-item" [routerLink]="nav.route">{{nav.label}}</div>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="p-3">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

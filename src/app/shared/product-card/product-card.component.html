@@ -1,0 +1,16 @@
+<mat-card class="card" appearance="outlined">
+  <app-caroussel [images]="product.images"></app-caroussel>
+
+  <div class="d-flex justify-content-between px-1 gap-2">
+    <div class=" title">{{product.title}}</div>
+    <div class=" date ">{{product.createdAt | date}}</div>
+  </div>
+  <mat-card-content>
+    <div class="description mt-3">
+      {{product.description}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="openSellerDialog(product.seller)">By {{product.seller.name}}</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,25 @@
+<div class="carousel">
+  <img [src]="images[selectedIndex]" />
+  <div class="carousel-nav">
+    <svg-icon
+      src="icons/chevron-left-white.svg"
+      (click)="previous()"
+      class="cursor-pointer"
+    ></svg-icon>
+    <div class="dots-container">
+      @for( dot of [].constructor(images.length); track i; let i = $index; let
+          first = $first ) {
+        <div
+          class="dot"
+          [ngClass]="{ selected: selectedIndex == i }"
+          (click)="selectedIndex = i"
+        ></div>
+      }
+    </div>
+    <svg-icon
+      src="icons/chevron-right-white.svg"
+      (click)="next()"
+      class="cursor-pointer"
+    ></svg-icon>
+  </div>
+</div>
