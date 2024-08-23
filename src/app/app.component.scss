@@ -1,0 +1,19 @@
+.card-container {
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  background-color: #ffffff;
+  .card-header {
+    padding: 16px;
+    border-bottom: 1px solid #dcdfe6;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .card-body {
+    padding: 24px;
+  }
+  img {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: fill !important;
+  }
+}

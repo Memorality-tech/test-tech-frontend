@@ -2,15 +2,18 @@
   <app-caroussel [images]="product.images"></app-caroussel>
 
   <div class="d-flex justify-content-between px-1 gap-2">
-    <div class=" title">{{product.title}}</div>
-    <div class=" date ">{{product.createdAt | date}}</div>
+    <div class="title">{{ product.title }}</div>
+    <div class="date">{{ product.createdAt | date }}</div>
   </div>
   <mat-card-content>
     <div class="description mt-3">
-      {{product.description}}
+      {{ product.description }}
     </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="openSellerDialog(product.seller)">By {{product.seller.name}}</button>
+  <mat-card-actions class="d-flex justify-content-between align-items-center">
+    <button mat-button (click)="openSellerDialog(product.seller)">
+      By {{ product.seller.name }}
+    </button>
+    <div class="price">{{ product.price | number }} DT</div>
   </mat-card-actions>
 </mat-card>

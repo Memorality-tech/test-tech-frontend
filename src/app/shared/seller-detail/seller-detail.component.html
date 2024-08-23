@@ -1,1 +1,52 @@
-<div>{{ seller.name}}</div>
+<div class="p-2">
+  <div class="card-header">
+    Product lists by
+    <span class="text-primary">{{ seller[0].payload.seller.name }}</span>
+  </div>
+
+  <div>
+    @for (item of seller; track $index) {
+    <div class="card-container d-flex mt-3">
+      <app-caroussel [images]="item?.payload?.images"></app-caroussel>
+
+      <div class="w-100 p-1">
+        <div class="d-flex justify-content-between">
+          <div class="title p-1">{{ item?.payload?.title }}</div>
+          <div class="date">
+            {{ dataFormat(item?.payload?.createdAt).format("L") }}
+          </div>
+        </div>
+        <div class="price ms-2">{{ item?.payload?.price | number }} DT</div>
+        <div class="text-secondary d-flex align-items-start mb-1 location">
+          <svg-icon
+            src="/icons/location.svg"
+            style="margin-top: -5px"
+            class="me-2"
+          ></svg-icon>
+          {{
+            item?.payload?.location.delegation +
+              "-" +
+              item?.payload?.location.delegation
+          }}
+        </div>
+        <div
+          class="text-secondary d-flex align-items-start mb-3"
+          *ngIf="item?.payload?.phone"
+        >
+          <svg-icon
+            src="/icons/phone.svg"
+            style="margin-top: -5px"
+            class="me-2"
+          ></svg-icon>
+          {{ item?.payload?.phone }}
+        </div>
+        <mat-card-content>
+          <div class="description">
+            {{ item?.payload?.description }}
+          </div>
+        </mat-card-content>
+      </div>
+    </div>
+    }
+  </div>
+</div>

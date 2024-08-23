@@ -1,7 +1,11 @@
 <div class="row">
   @for (item of [].constructor(itemNumber); track $index) {
-    <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
-      <ngx-skeleton-loader count="1" animation="progress" [theme]="{height: '500px'}"/>
-    </div>
+  <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+    <ngx-skeleton-loader
+      count="1"
+      animation="progress"
+      [theme]="{ height: height }"
+    />
+  </div>
   }
 </div>

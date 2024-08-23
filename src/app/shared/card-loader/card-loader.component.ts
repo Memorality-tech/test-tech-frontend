@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card-loader',
   templateUrl: './card-loader.component.html',
-  styleUrl: './card-loader.component.scss'
+  styleUrl: './card-loader.component.scss',
 })
 export class CardLoaderComponent {
-    @Input() itemNumber = 10
+  @Input() itemNumber = 10;
+  @Input() height = '500px';
 }

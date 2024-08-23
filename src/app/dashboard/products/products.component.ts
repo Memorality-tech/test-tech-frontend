@@ -1,27 +1,28 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {ProductsService} from "../../services/products.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Product} from "../../core/models/product.model";
-import {debounceTime} from "rxjs";
+import { Component, OnInit, signal } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Product } from '../../core/models/product.model';
+import { debounceTime } from 'rxjs';
+import moment from 'moment';
 const MAX_VALUE_PRICE = 500000;
+const LIMIT = 10;
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
 })
-
 export class ProductsComponent implements OnInit {
-
-
   loading = false;
+  stats: any;
+  moment = moment;
   productForm: FormGroup = this.fb.group({
-    query : [""],
-    title : [""],
+    query: [''],
+    title: [''],
     priceGte: [0],
     priceLte: [MAX_VALUE_PRICE],
     offset: 0,
-    limit : 10
+    limit: LIMIT,
   });
 
   priceGte = 0;
@@ -30,13 +31,18 @@ export class ProductsComponent implements OnInit {
   protected readonly products = signal<Product[]>([]);
   totalElements: number;
 
-  constructor(private fb: FormBuilder, private productsService: ProductsService) {
-  }
+  constructor(
+    private fb: FormBuilder,
+    private productsService: ProductsService
+  ) {}
   ngOnInit() {
-    this.productsFilter()
-    this.productForm.valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
-      this.productsFilter()
-    })
+    this.productsFilter();
+    // this.productForm.valueChanges
+    //   .pipe(debounceTime(2000))
+    //   .subscribe((value) => {
+    //     this.productsFilter();
+    //   });
+    this.fetchStats();
   }
 
   formatLabel(value: number): string {
@@ -47,41 +53,56 @@ export class ProductsComponent implements OnInit {
   }
 
   productsFilter() {
-    this.loading = true
+    this.loading = true;
     const body = this.productForm.value;
     body.priceGte = this.priceGte;
     body.priceLte = this.priceLte;
     this.productsService.productsFilter(body).subscribe({
-      next: data => {
-        this.products.update(oldProducts => {
+      next: (data) => {
+        this.products.update((oldProducts) => {
           return data.results;
         });
-        console.log(data)
+        console.log(data);
         // this.products = data.results
         this.totalElements = data.totalElements;
-        this.loading = false
-      }
-    })
+        this.loading = false;
+      },
+    });
   }
-
+  fetchStats(): void {
+    this.productsService.getStats().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.stats = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
   loadProduct() {
     // this.loading = true
     this.productsService.productsFilter(this.productForm.value).subscribe({
-      next: data => {
-        this.products.update(oldProducts => {
+      next: (data) => {
+        this.products.update((oldProducts) => {
           return [...oldProducts, ...data.results];
         });
-        console.log(data)
+        console.log(data);
         // this.products = data.results
         this.totalElements = data.totalElements;
         // this.loading = false
-      }
-    })
+      },
+    });
   }
 
   loaded(id: number) {
-    if (this.products().length < this.totalElements && this.products().at(-2)?.id === id) {
-      this.productForm.get('offset')?.patchValue(this.productForm.get('offset')?.value + 1)
+    if (
+      this.products().length < this.totalElements &&
+      this.products().at(-2)?.id === id
+    ) {
+      this.productForm
+        .get('offset')
+        ?.patchValue(this.productForm.get('offset')?.value + 10);
       this.loadProduct();
     }
   }

@@ -1,0 +1,39 @@
+.card-container {
+  border: 1px solid #dcdfe6;
+  border-radius: 8px;
+  background-color: #ffffff;
+  .card-header {
+    padding: 16px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .card-body {
+    padding: 24px;
+  }
+}
+.create-at {
+  font-size: 12px;
+}
+.description {
+  font-size: 14px;
+  height: 150px;
+  overflow: auto;
+}
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  height: 80px;
+  overflow: auto;
+}
+.date {
+  font-size: small;
+  color: grey;
+  text-align: right;
+  width: max-content;
+}
+
+.card-header {
+  padding: 16px;
+  font-weight: 600;
+  font-size: 16px;
+}
