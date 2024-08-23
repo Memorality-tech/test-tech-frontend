@@ -32,12 +32,12 @@
     <div class="row">
       <mat-form-field appearance="outline" class="col-4">
         <mat-label>Global search</mat-label>
-        <input matInput />
+        <input matInput formControlName="keyword" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="col-4">
         <mat-label>Search by title</mat-label>
-        <input matInput />
+        <input matInput formControlName="title" />
       </mat-form-field>
     </div>
   </div>
@@ -46,14 +46,15 @@
     <div class="d-flex gap-2 flex-wrap">
       <mat-form-field appearance="outline" class="col-2">
         <mat-label>min price</mat-label>
-        <input matInput [(ngModel)]="priceGte" />
+        <input matInput [(ngModel)]="priceGte" (change)="priceChange($event, 'priceGte')" type="number" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="col-2">
         <mat-label>max price</mat-label>
-        <input matInput [(ngModel)]="priceLte" />
+        <input matInput [(ngModel)]="priceLte" (change)="priceChange($event, 'priceLte')" type="number" />
       </mat-form-field>
     </div>
+    <div *ngIf="priceMessageError" class="text-danger">{{priceMessageError}}</div>
     <div class="d-flex justify-content-between">
       <div>{{ formatLabel(priceGte) }}</div>
       <div>{{ formatLabel(priceLte) }}</div>
@@ -66,8 +67,8 @@
       [displayWith]="formatLabel"
       color="warn"
     >
-      <input matSliderStartThumb [(ngModel)]="priceGte" #priceGtee />
-      <input matSliderEndThumb [(ngModel)]="priceLte" #priceLtee />
+      <input matSliderStartThumb [(ngModel)]="priceGte" (change)="priceChange($event, 'priceGte')" />
+      <input matSliderEndThumb [(ngModel)]="priceLte" (change)="priceChange($event, 'priceLte')"  />
     </mat-slider>
   </div>
 

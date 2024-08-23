@@ -17,10 +17,10 @@ export class ProductsComponent implements OnInit {
   stats: any;
   moment = moment;
   productForm: FormGroup = this.fb.group({
-    query: [''],
+    keyword: [''],
     title: [''],
-    priceGte: [0],
-    priceLte: [MAX_VALUE_PRICE],
+    priceGte: [null],
+    priceLte: [null],
     offset: 0,
     limit: LIMIT,
   });
@@ -31,16 +31,34 @@ export class ProductsComponent implements OnInit {
   protected readonly products = signal<Product[]>([]);
   totalElements: number;
 
+  priceMessageError = ''
   constructor(
     private fb: FormBuilder,
     private productsService: ProductsService
   ) {}
   ngOnInit() {
     this.productsFilter();
-    // this.productForm.valueChanges
-    //   .pipe(debounceTime(2000))
-    //   .subscribe((value) => {
-    //     this.productsFilter();
+    this.productForm.get('keyword')?.valueChanges.pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.productsFilter();
+      });
+
+    this.productForm.get('title')?.valueChanges.pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.productsFilter();
+      });
+
+    this.productForm.get('priceGte')?.valueChanges.pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.productsFilter();
+      });
+
+    this.productForm.get('priceLte')?.valueChanges.pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.productsFilter();
+      });
+    // this.productForm.valueChanges.subscribe((value) => {
+    //     console.log('f:', value)
     //   });
     this.fetchStats();
   }
@@ -51,18 +69,26 @@ export class ProductsComponent implements OnInit {
     }
     return `${value}`;
   }
+  priceChange(event: any, key: string) {
+    const value = event.target.value;
+    if (this.priceGte > this.priceLte) {
+      this.priceMessageError = 'min price can\'t be greater than ' + this.priceLte
+    } else if (this.priceLte < this.priceGte) {
+      this.priceMessageError = 'max price can\'t be lower than ' + this.priceGte
+    } else {
+    this.productForm.get(key)?.patchValue(+value)
+    }
+  }
 
   productsFilter() {
+    this.productForm.get('offset')?.patchValue(0)
     this.loading = true;
     const body = this.productForm.value;
-    body.priceGte = this.priceGte;
-    body.priceLte = this.priceLte;
+    // body.priceGte = this.priceGte;
+    // body.priceLte = this.priceLte;
     this.productsService.productsFilter(body).subscribe({
       next: (data) => {
-        this.products.update((oldProducts) => {
-          return data.results;
-        });
-        console.log(data);
+        this.products.set(data.results);
         // this.products = data.results
         this.totalElements = data.totalElements;
         this.loading = false;
@@ -72,7 +98,6 @@ export class ProductsComponent implements OnInit {
   fetchStats(): void {
     this.productsService.getStats().subscribe({
       next: (res) => {
-        console.log(res);
         this.stats = res;
       },
       error: (err) => {
@@ -87,7 +112,6 @@ export class ProductsComponent implements OnInit {
         this.products.update((oldProducts) => {
           return [...oldProducts, ...data.results];
         });
-        console.log(data);
         // this.products = data.results
         this.totalElements = data.totalElements;
         // this.loading = false
